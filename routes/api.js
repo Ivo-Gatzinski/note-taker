@@ -1,3 +1,6 @@
+//first pencil routes to make sure all are connected
+//then write code for notes operations
+
 const diagnostics = require("express").Router();
 const { v4: uuidv4 } = require("uuid");
 const { readAndAppend, readFromFile } = require("../helpers/fsUtils");
