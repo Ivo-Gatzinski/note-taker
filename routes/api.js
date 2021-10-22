@@ -4,6 +4,11 @@ const { v4: uuidv4 } = require("uuid");
 const {readAndAppend, readFromFile} = require("../helpers/fsUtils");
 const router = express.Router();
 
+<<<<<<< HEAD
+=======
+const api = () => {
+
+>>>>>>> parent of 7250295 (try to fix routing errors)
 router.get("/api/notes", (req, res) => {
     readFromFile(path.join(__dirname, "../db/db.json"), "utf-8")
       .then((data) => {
@@ -16,7 +21,11 @@ router.get("/api/notes", (req, res) => {
   });
 
   router.post("/api/notes", (req, res) => {
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> parent of 7250295 (try to fix routing errors)
     const { id, title, text } = req.body;
   
     if (id && title && text) {
@@ -39,4 +48,5 @@ router.get("/api/notes", (req, res) => {
       res.json("Error in posting note");
     }
   });
-  module.exports = router;
+}
+  module.exports = api;
