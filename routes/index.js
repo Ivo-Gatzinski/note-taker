@@ -3,7 +3,7 @@ const router = express.Router();
 
 module.exports = router;
 
-// Import our modular routers for /tips and /feedback
+// Import our modular routers for /api and /html
 const apiRouter = require("./api");
 const htmlRouter = require("./html");
 
@@ -12,8 +12,7 @@ router.use("./api/notes", apiRouter);
 
 const app = express();
 
-app.use("/tips", tipsRouter);
-app.use("/feedback", feedbackRouter);
-app.use("/diagnostics", diagnosticsRouter);
+app.use("/html", htmlRouter);
+app.use("/api", apiRouter);
 
 module.exports = app;
