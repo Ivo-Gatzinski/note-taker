@@ -11,7 +11,7 @@ router.get("/api/notes", (req, res) => {
       })
       .catch((err) => {
         console.log(err);
-        res.status(500).json({ error: "Unable to read todos." });
+        res.status(500).json({ error: "Unable to read notes." });
       });
   });
 
