@@ -1,38 +1,42 @@
-//first pencil routes to make sure all are connected
-//then write code for notes operations
-
-const diagnostics = require("express").Router();
+const express = require("express");
+const path = require("path");
 const { v4: uuidv4 } = require("uuid");
-const { readAndAppend, readFromFile } = require("../helpers/fsUtils");
+const {readAndAppend, readFromFile} = require("../helpers/fsUtils");
+const router = express.Router();
 
-// GET Route for retrieving diagnostic information
-diagnostics.get("/", (req, res) => {
-  readFromFile("./db/diagnostics.json").then((data) =>
-    res.json(JSON.parse(data))
-  );
-});
+router.get("/api/notes", (req, res) => {
+    readFromFile(path.join(__dirname, "../db/db.json"), "utf-8")
+      .then((data) => {
+        res.json(JSON.parse(data));
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ error: "Unable to read todos." });
+      });
+  });
 
-// POST Route for a error logging
-diagnostics.post("/", (req, res) => {
-  console.log(req.body);
-
-  const { isValid, errors } = req.body;
-
-  const payload = {
-    time: Date.now(),
-    error_id: uuidv4(),
-    errors,
-  };
-
-  if (!isValid) {
-    readAndAppend(payload, "./db/diagnostics.json");
-    res.json("Diagnostic information added 🔧");
-  } else {
-    res.json({
-      message: "Object is valid, not logging. Check front end implementation",
-      error_id: payload.error_id,
-    });
-  }
-});
-
-module.exports = diagnostics;
+  router.post("/api/notes", (req, res) => {
+    // Destructuring assignment for the items in req.body
+    const { id, title, text } = req.body;
+  
+    // If all the required properties are present
+    if (id && title && text) {
+      // Variable for the object we will save
+      const newNote = {
+        title,
+        text,
+        id: uuidv4(),
+      };
+  
+      readAndAppend(newNote, "./db/db.json");
+  
+      const response = {
+        status: "success",
+        body: newNote,
+      };
+  
+      res.json(response);
+    } else {
+      res.json("Error in posting note");
+    }
+  });
