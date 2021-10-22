@@ -1,13 +1,10 @@
 const express = require("express");
-const router = express.Router();
+const app = express.Router();
 
 const apiRouter = require("./api");
 const htmlRouter = require("./html");
 
-router.use(htmlRouter);
-router.use(apiRouter);
-
-const app = express();
+app.use(htmlRouter);
+app.use(apiRouter);
 
 module.exports = app;
-module.exports = router;
