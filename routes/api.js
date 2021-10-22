@@ -4,9 +4,7 @@ const { v4: uuidv4 } = require("uuid");
 const {readAndAppend, readFromFile} = require("../helpers/fsUtils");
 const router = express.Router();
 
-const api = () => {
-
-router.get("/api/notes", (req, res) => {
+router.get("/notes", (req, res) => {
     readFromFile(path.join(__dirname, "../db/db.json"), "utf-8")
       .then((data) => {
         res.json(JSON.parse(data));
@@ -17,8 +15,8 @@ router.get("/api/notes", (req, res) => {
       });
   });
 
-  router.post("/api/notes", (req, res) => {
-      
+  router.post("/notes", (req, res) => {
+
     const { id, title, text } = req.body;
   
     if (id && title && text) {
@@ -41,5 +39,4 @@ router.get("/api/notes", (req, res) => {
       res.json("Error in posting note");
     }
   });
-}
-  module.exports = api;
+  module.exports = router;
