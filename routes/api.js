@@ -4,8 +4,6 @@ const { v4: uuidv4 } = require("uuid");
 const {readAndAppend, readFromFile} = require("../helpers/fsUtils");
 const app = express.Router();
 
-const api = () => {
-
 app.get("/api/notes", (req, res) => {
     readFromFile(path.join(__dirname, "../db/db.json"), "utf-8")
       .then((data) => {
@@ -41,5 +39,4 @@ app.get("/api/notes", (req, res) => {
       res.json("Error in posting note");
     }
   });
-}
-  module.exports = api;
+  module.exports = app;
